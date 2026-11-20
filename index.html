@@ -525,15 +525,15 @@
     }
 
     .quote-box:nth-child(2) {
-      background: var(--surface-sun);
-      border: 1px solid #f4dc95;
-      color: #5c3d00;
+      background: var(--surface-mint);
+      border: 1px solid #bde6dc;
+      color: var(--teal-deep);
     }
 
     .quote-box:nth-child(3) {
-      background: var(--surface-warm);
-      border: 1px solid #f6cdb6;
-      color: #6d2813;
+      background: var(--surface-mint);
+      border: 1px solid #bde6dc;
+      color: var(--teal-deep);
     }
 
     .filter-tabs {
@@ -794,6 +794,40 @@
   .other-marker::before { width:14px; height:4px; } .other-marker::after { width:4px; height:14px; }
   .other-label { background:#fff; color:#7A1F16; font:700 12px system-ui,sans-serif; padding:3px 7px; border-radius:6px; box-shadow:0 2px 6px rgba(0,0,0,.25); white-space:nowrap; }
   .leaflet-container { font-family:system-ui,sans-serif; }
+  /* Ellathukkum mela theriyurathukku */
+  .floating-actions {  position: fixed;  bottom: 20px;  right: 20px;  display: flex;  flex-direction: column;  align-items: flex-end;  gap: 12px;  z-index: 9999; }
+.float-btn {  display: flex;  align-items: center;  gap: 8px;  padding: 12px 18px;  border-radius: 50px;  color: #ffffff;  text-decoration: none;  font-weight: 600;  font-size: 14px;  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);  transition: transform 0.2s ease, box-shadow 0.2s ease;}
+.float-btn:hover {  transform: translateY(-3px);  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);}
+.whatsapp-btn {  background-color: #25D366;}
+.book-btn {  background-color: #e85d48; /* Unga header btn-coral color */}
+/* Mobile screen-la icon mattum round-a theriya */
+@media (max-width: 600px) {  .float-btn span {    display: none;  }  .float-btn {    padding: 14px;    border-radius: 50%;  }}
+/* Unga ella buttons-ukkum common trendy animation */
+.btn,
+.float-btn,
+button {  position: relative;  overflow: hidden;  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease, filter 0.2s ease;  cursor: pointer;  user-select: none;}
+/* Hover pannum pothu light-a mela varum */
+.btn:hover,
+.float-btn:hover,
+button:hover {  transform: translateY(-2px);  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);  filter: brightness(1.05);}
+/* Click (Press) pannum pothu trendy-a ulla amungi bounce aagum */
+.btn:active,
+.float-btn:active,
+button:active {  transform: scale(0.94) translateY(1px);  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);  transition: transform 0.08s ease;}
+
+/* Glossy Light Shine Sweep Effect */
+.btn::after,
+.float-btn::after,
+button::after {  content: "";  position: absolute;  top: 0;  left: -100%;  width: 60%;  height: 100%;  background: linear-gradient(    120deg,    transparent,    rgba(255, 255, 255, 0.4),    transparent  );  transform: skewX(-20deg);  transition: left 0.55s ease;  pointer-events: none;}
+
+/* Hover matrum Click pannum pothu light flash cross aagum */
+.btn:hover::after,
+.float-btn:hover::after,
+button:hover::after,
+.btn:active::after,
+.float-btn:active::after,
+button:active::after {  left: 140%;}
+
 </style>
 </head>
 <body>
@@ -934,7 +968,7 @@
           <div class="highlights-3">
             <div class="quote-box">“Low price good quality best treatment likeable by middle class”</div>
             <div class="quote-box">“The service by the people were exceptional.”</div>
-            <div class="quote-box">“Could add more staff to assist , always have to wait for the tablet collection.”</div>
+            <div class="quote-box">“Good service and friendly staff”</div>
           </div>
         </div>
 
@@ -1086,19 +1120,20 @@
   </main>
 
   <footer>
-    <img style="width: 10%;" src="indira-images/logo.jpg" alt="Indira Hospital Logo" class="brand-logo">
-    <p style="max-width:900px;margin:0 auto 10px;font-size:13px;opacity:.85">Sample website prepared by Pixeltech using public information and photos supplied by the hospital. It is not the official website of Indira Hospital. Please confirm all details before publishing.</p>
     <div class="wrap foot-inner">
+      
       <div>
         <div style="font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.2rem; font-weight: 800; color: #ffffff;">
-          Indira Hospital (ENT and Ortho Centre)
+          <img style="width: 10%;" src="indira-images/logo.jpg" alt="Indira Hospital Logo" class="brand-logo">Indira Hospital (ENT and Ortho Centre)
         </div>
         <div>Iyer Bungalow, Pudunatham Road, Madurai, Tamil Nadu 625014 · X48P+WP</div>
       </div>
       <div>
         Phone: <a href="tel:09655312813">096553 12813</a> · OPD: Until 2:30 PM · Reopens 5:00 PM
       </div>
+      <p style="max-width:900px;margin:0 auto 10px;font-size:13px;opacity:.85">Sample website prepared by Pixeltech using public information and photos supplied by the hospital. It is not the official website of Indira Hospital. Please confirm all details before publishing.</p>
     </div>
+    
   </footer>
 
   <script>
@@ -1162,5 +1197,27 @@
     });
   })();
 </script>
+<div class="floating-actions">
+  <!-- Book Appointment Button (Unga #callback section-ku pogum) -->
+  <a href="#callback" class="float-btn book-btn" aria-label="Book an Appointment">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+      <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zm-7 5h5v5h-5v-5z"/>
+    </svg>
+    <span>Book Appointment</span>
+  </a>
+
+  <!-- WhatsApp Button (91XXXXXXXXXX ku pathila hospital number podunga) -->
+  <a href="https://wa.me." 
+     class="float-btn whatsapp-btn" 
+     target="_blank" 
+     rel="noopener noreferrer" 
+     aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+      <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824z"/>
+    </svg>
+    <span>WhatsApp</span>
+  </a>
+</div>
+
 </body>
 </html>
