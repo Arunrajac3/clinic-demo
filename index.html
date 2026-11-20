@@ -785,6 +785,16 @@
       }
     }
   </style>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+<style>
+  #hospital-map { width:100%; height:100%; min-height:340px; border-radius:inherit; }
+  .ih-marker { width:44px; height:44px; border-radius:50%; background:#E8612D; color:#fff; font:800 15px/44px system-ui,sans-serif; text-align:center; border:3px solid #fff; box-shadow:0 6px 14px rgba(0,0,0,.35); }
+  .other-marker { width:34px; height:34px; border-radius:50%; background:#fff; border:2px solid #C0392B; box-shadow:0 4px 10px rgba(0,0,0,.3); display:flex; align-items:center; justify-content:center; }
+  .other-marker::before, .other-marker::after { content:""; position:absolute; background:#C0392B; border-radius:2px; }
+  .other-marker::before { width:14px; height:4px; } .other-marker::after { width:4px; height:14px; }
+  .other-label { background:#fff; color:#7A1F16; font:700 12px system-ui,sans-serif; padding:3px 7px; border-radius:6px; box-shadow:0 2px 6px rgba(0,0,0,.25); white-space:nowrap; }
+  .leaflet-container { font-family:system-ui,sans-serif; }
+</style>
 </head>
 <body>
   <div class="ribbon">
@@ -819,7 +829,7 @@
       <div class="wrap hero-grid">
         <div>
           <div class="badge-row">
-            <span class="pill-rating">Patient reviews on Google</span>
+            <span class="pill-rating">4.3 ★ · 49 Google reviews</span>
             <span class="pill-status">● Open · Closes 2:30 PM · Reopens 5 PM</span>
           </div>
 
@@ -913,7 +923,7 @@
 
         <div class="rating-banner">
           <div class="big-score">
-            <div class="num">★</div>
+            <div class="num">4.3</div>
             <div class="stars" style="font-size: 1.25rem; margin: 6px 0;" aria-hidden="true">★★★★★</div>
             <div class="rev-sub">49 reviews</div>
           </div>
@@ -1008,11 +1018,7 @@
         <div class="loc-grid">
           <div class="map-card">
             <div class="map-frame-wrap">
-              <iframe
-                title="Map preview for Iyer Bungalow, Pudunatham Road, Madurai 625014"
-                src="https://www.openstreetmap.org/export/embed.html?bbox=78.1200%2C9.9250%2C78.1550%2C9.9550&amp;layer=mapnik&amp;marker=9.9395%2C78.1365"
-                loading="lazy"
-              ></iframe>
+              <div id="hospital-map" role="img" aria-label="Map showing Indira Hospital and nearby hospitals"></div>
             </div>
 
             <div class="map-visual-banner">
@@ -1119,5 +1125,38 @@
       enquiryForm.reset();
     });
   </script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script>
+  // Places shown on the map. Indira Hospital is fixed. Add other hospitals here with exact coordinates.
+  const HOSPITAL = { name: 'Indira Hospital', lat: 9.967278, lng: 78.136875 };
+  // Lakshmi Hospital: paste the exact latitude and longitude from Google Maps (right-click the place > coordinates).
+  // Until then, it is left off the map so no wrong location is shown.
+  const OTHERS = [
+    { name: 'Lakshmi Hospital', lat: null, lng: null }
+  ];
+
+  (function () {
+    const el = document.getElementById('hospital-map');
+    if (!el || typeof L === 'undefined') return;
+    const map = L.map(el, { scrollWheelZoom: false }).setView([HOSPITAL.lat, HOSPITAL.lng], 15);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Indira Hospital: orange badge with the IH logo letters, labelled
+    L.marker([HOSPITAL.lat, HOSPITAL.lng], {
+      icon: L.divIcon({ className: '', html: '<div class="ih-marker">IH</div>', iconSize: [44, 44], iconAnchor: [22, 22] })
+    }).addTo(map).bindTooltip('Indira Hospital, ENT and Ortho Centre', { permanent: true, direction: 'top', offset: [0, -26], className: 'other-label' });
+
+    // Other hospitals: red cross marker with a name label
+    OTHERS.forEach(h => {
+      if (h.lat == null || h.lng == null) return;
+      L.marker([h.lat, h.lng], {
+        icon: L.divIcon({ className: '', html: '<div class="other-marker"></div>', iconSize: [34, 34], iconAnchor: [17, 17] })
+      }).addTo(map).bindTooltip(h.name, { permanent: true, direction: 'bottom', offset: [0, 18], className: 'other-label' });
+    });
+  })();
+</script>
 </body>
 </html>
