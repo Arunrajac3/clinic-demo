@@ -9,7 +9,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     .call-back-btn
-    {padding: 0px 20px;}
+    {display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0px 20px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.94rem;
+      text-decoration: none;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+      }
     .ribbon-pin { flex-shrink: 0; color: inherit; }
     :root {
       --bg: #fffaf4;
@@ -860,7 +872,7 @@ button:active::after {  left: 140%;}
       <a href="#map-preview">Map &amp; Hours</a>
     </nav>
 
-    <a href="#callback" class="btn btn-coral call-back-btn">Callback</a>
+    <a href="#callback" class="btn-coral call-back-btn">Callback</a>
   </div>
 </header>
 
